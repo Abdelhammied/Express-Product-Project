@@ -1,0 +1,10 @@
+.error {
+    border: 1px solid #a94442;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+}
+
+.m-b-25 {
+    margin-bottom: 25px; 
+}

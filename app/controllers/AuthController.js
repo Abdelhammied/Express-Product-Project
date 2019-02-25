@@ -2,13 +2,19 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
 exports.login = (req, res, next) => {
-
+    res.render('auth.login', {
+        pageTitle: "Login | تسجيل دخول"
+    })
 }
 
 exports.register = (req, res, next) => {
+    let errors = req.flash('error');
+    if (!errors.length > 0) {
+        errors = null;
+    }
     res.render('auth.register', {
         pageTitle: "Register | عضوية جديدة",
-        csrf_token: req.csrfToken()
+        errors: errors    
     })
 }
 
@@ -16,7 +22,6 @@ exports.registerPost = (req, res, next) => {
     const user_name = req.body.user_name;
     const user_email = req.body.user_email;
     const password = req.body.password;
-
     User.findOne({
         email: user_email
     }).then(email => {
@@ -31,6 +36,8 @@ exports.registerPost = (req, res, next) => {
                 password: hashedPass
             })
             newUser.save().then(user => {
+                req.session.isAuth = true;
+                req.session.user = user ;
                 return res.redirect('/home')
             })
         })
