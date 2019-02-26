@@ -14,7 +14,7 @@ const routes = require('./app/routes/routes');
 /* -- -- -- -- Local Modules Ends -- -- -- --  */
 
 /* -- -- -- -- CONST STARTS -- -- -- --  */
-const MONGODB_URI = "mongodb://localhost:27017/shop";
+const MONGODB_URI = "mongodb://localhost:27017/products";
 const csrfProtection = csrf();
 /* -- -- -- -- CONST ENDS -- -- -- --  */
 
@@ -42,6 +42,11 @@ app.use(flash());
 app.use((req, res, next) => {
     res.locals.csrfToken = req.csrfToken(); 
     res.locals.isAuth = req.session.isAuth;
+    let errors = req.flash('error');
+    if (!errors.length > 0) {
+        errors = null
+    }
+    res.locals.errors = errors;
     next();
 })
 app.use(routes);

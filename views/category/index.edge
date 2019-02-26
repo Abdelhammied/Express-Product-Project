@@ -1,1 +1,13 @@
 @layout('layouts.main')
+
+@section('content')
+    @if(isAuth)
+    <div class="row">
+        <div class="col-md-4 col-md-offset-8">
+            <a href="/category/create" class="btn btn-default">
+                Create
+            </a>
+        </div>
+    </div>
+    @endif
+@endsection

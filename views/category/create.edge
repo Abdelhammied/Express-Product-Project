@@ -1,0 +1,36 @@
+@layout('layouts.main')
+
+@section('content')
+<div class="row">
+    <div class="col-xs-12 text-center">
+        @if(errors)
+        <h6 class="m-b-25">
+            <strong class="text-danger error">
+                {{ errors }}
+            </strong>
+        </h6>
+        @endif
+    </div>
+    <div class="col-xs-12">
+        
+        <form action="/category/create" method="POST" class="form-horizontal">
+
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+            <div class="form-group">
+                <label for="category_name" class="col-sm-4 control-label">Category</label>
+                <div class="col-sm-6">
+                    <input type="text" name="category_name" id="category_name" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <button class="btn btn-success" type="submit">
+                    Create
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+@endsection
